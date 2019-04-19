@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "848823088",
+    "firebase_url": "https://khulasanewslite.firebaseio.com",
+    "project_id": "khulasanewslite",
+    "storage_bucket": "khulasanewslite.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848823088:android:92344a09a501514c",
+        "android_client_info": {
+          "package_name": "com.mojodigi.khulasaNewsLite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848823088-56kt9r6spjostmftgmn8kekr7r7enuj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB9j7iSNQUU1Xkpj4sMd4ZG1u3EHShrec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848823088-56kt9r6spjostmftgmn8kekr7r7enuj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

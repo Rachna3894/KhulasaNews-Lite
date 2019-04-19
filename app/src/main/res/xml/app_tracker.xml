@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- End current session if app sleeps for a period of time -->
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!-- Enable automatic Activity measurement -->
+
+
+    <!--
+
+       // Enable this code to track the activity on onResume of every activity
+       // if ga_autoActivityTracking set to false
+      // MyApplication.getInstance().trackScreenView("Second Activity");
+
+
+      // currently ga_autoActivityTracking is true so  no need to write code explicitly
+
+
+  -->
+
+
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!--  The property id associated with this analytics tracker -->
+
+
+
+      <string name="ga_trackingId">UA-131226383-1</string>
+
+
+
+     <string name="ga_sampleFrequency">100.0</string>
+
+
+    <!-- will report any crash if happens-->
+
+     <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <screenName name="com.mojodigi.khulasaNewsLite.WebviewActivity">WebviewActivity</screenName>
+
+
+
+     <!--
+       See Project Structure -> Analytics -> Google Analytics -> Learn More
+       to learn more about configuring this file.
+     -->
+
+
+</resources>

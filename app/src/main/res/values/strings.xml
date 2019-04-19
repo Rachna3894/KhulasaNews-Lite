@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Khulasa News Lite</string>
+
+
+    <!-- demo app ids -->
+    <!--
+      <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+      <string name="banner_add_id">ca-app-pub-3940256099942544/6300978111</string>
+     -->
+      <!-- demo app ids -->
+
+
+
+    <!-- actual app ids -->
+
+        <string name="admob_app_id">ca-app-pub-7769757158085259~5437150357</string>
+        <string name="banner_add_id">ca-app-pub-7769757158085259/7436627737</string>
+
+
+        <!-- actual app ids -->
+
+</resources>
