@@ -7,8 +7,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
 
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -59,6 +59,8 @@ dependencies {
     //added alreay
     // implementation 'com.android.support:recyclerview-v7:28.0.0'// Required Dependency by Audience Network SDK
 
+
+
     // Appmetrica SDK dependency .
     implementation 'com.yandex.android:mobmetricalib:3.5.3'
     // Optionally. Play Install Referrer library.
@@ -67,6 +69,11 @@ dependencies {
 
     // fireabse analytics
     implementation 'com.google.firebase:firebase-core:16.0.7'
+
+
+
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
 
 
 }

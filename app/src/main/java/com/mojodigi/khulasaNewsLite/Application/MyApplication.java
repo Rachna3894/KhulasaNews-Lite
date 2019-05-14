@@ -43,8 +43,8 @@ public class MyApplication extends android.support.multidex.MultiDexApplication 
 
         //for fb adds
         //https://developers.facebook.com/docs/audience-network/reference/android/com/facebook/ads/audiencenetworkads.html/
-       // AudienceNetworkAds.initialize(getApplicationContext());
-      //  AudienceNetworkAds.isInAdsProcess(getApplicationContext());
+        //AudienceNetworkAds.initialize(getApplicationContext());
+       // AudienceNetworkAds.isInAdsProcess(getApplicationContext());
 
 
 
