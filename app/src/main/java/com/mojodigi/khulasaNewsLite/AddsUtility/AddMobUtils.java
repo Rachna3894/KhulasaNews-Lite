@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 
 /*import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;*/
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -294,7 +296,7 @@ public  void displaySmaatoBannerAdd(BannerView smaaTobannerView, RelativeLayout 
     }
 
     smaaToAddContainer.addView(smaaTobannerView, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, AddConstants.dpToPx(50) ));
-}
+}*/
 
     public void dispFacebookBannerAdd(Context mContext, SharedPreferenceUtil addPref,Activity activity) {
         String bannerAddid = addPref.getStringValue(AddConstants.BANNER_ADD_ID, AddConstants.NOT_FOUND);
@@ -305,6 +307,13 @@ public  void displaySmaatoBannerAdd(BannerView smaaTobannerView, RelativeLayout 
             com.facebook.ads.AdView fbAdView = new com.facebook.ads.AdView(mContext, bannerAddid, com.facebook.ads.AdSize.BANNER_HEIGHT_50);
 
             final LinearLayout adContainer = activity.findViewById(R.id.banner_container);
+
+
+            if(adContainer.getChildCount()>0)
+            {
+                //removes the already  added views from adContainer
+                adContainer.removeAllViews();
+            }
 
             adContainer.addView(fbAdView);
 
@@ -319,8 +328,6 @@ public  void displaySmaatoBannerAdd(BannerView smaaTobannerView, RelativeLayout 
                 @Override
                 public void onAdLoaded(Ad ad) {
                     // Ad loaded callback
-
-
                     adContainer.setVisibility(View.VISIBLE);
                 }
 
@@ -340,7 +347,7 @@ public  void displaySmaatoBannerAdd(BannerView smaaTobannerView, RelativeLayout 
 
 
         }
-    }*/
+    }
 
 
 

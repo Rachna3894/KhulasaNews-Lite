@@ -165,7 +165,7 @@ public class WebviewActivity extends AppCompatActivity {
             }
             else if(AddPrioverId.equalsIgnoreCase(AddConstants.FaceBookAddProividerId))
             {
-                //adutil.dispFacebookBannerAdd(mContext,addprefs , WebviewActivity.this);
+                adutil.dispFacebookBannerAdd(mContext,addprefs , WebviewActivity.this);
             }
 
         }
@@ -192,7 +192,7 @@ public class WebviewActivity extends AppCompatActivity {
 
                 Log.d("isNetworkAvailable", "" + isNetworkAvailable);
                 if (isNetworkAvailable) {
-                   /// new WebCall().execute();   not displaying adds currently
+                    new WebCall().execute();
 
                 } else {
                     if (mAdView != null && addprefs != null) {
@@ -207,17 +207,11 @@ public class WebviewActivity extends AppCompatActivity {
         };
         registerReceiver(internetChangerReceiver, intentFilter);
         // this broadcast  will  listen the  internet state change for sendig request  when internet becomes available
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
-
-
     }
 
     /* @Override
@@ -353,8 +347,6 @@ public class WebviewActivity extends AppCompatActivity {
                                         Log.d("AddiDs", adProviderName + " ==" + appId_PublisherId + "==" + bannerAdId + "==" + interstitialAdId + "==" + videoAdId);
 
 
-
-
                                         try {
                                             addprefs.setValue(AddConstants.SHOW_ADD, Boolean.parseBoolean(show_Add));
                                         }catch (Exception e)
@@ -406,7 +398,7 @@ public class WebviewActivity extends AppCompatActivity {
                                             }*/
                                         else  if(adProviderId.equalsIgnoreCase(AddConstants.FaceBookAddProividerId))
                                         {
-                                            // util.dispFacebookBannerAdd(mContext,addprefs , WebviewActivity.this);
+                                             util.dispFacebookBannerAdd(mContext,addprefs , WebviewActivity.this);
                                         }
 
 

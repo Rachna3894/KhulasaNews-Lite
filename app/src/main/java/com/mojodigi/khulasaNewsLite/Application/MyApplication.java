@@ -3,6 +3,7 @@ package com.mojodigi.khulasaNewsLite.Application;
 import android.app.Application;
 
 //import com.facebook.ads.AudienceNetworkAds;
+import com.facebook.ads.AudienceNetworkAds;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -43,9 +44,9 @@ public class MyApplication extends android.support.multidex.MultiDexApplication 
 
         //for fb adds
         //https://developers.facebook.com/docs/audience-network/reference/android/com/facebook/ads/audiencenetworkads.html/
-        //AudienceNetworkAds.initialize(getApplicationContext());
-       // AudienceNetworkAds.isInAdsProcess(getApplicationContext());
 
+        AudienceNetworkAds.initialize(getApplicationContext());
+        AudienceNetworkAds.isInAdsProcess(getApplicationContext());
 
 
         //App mertrica sdk
