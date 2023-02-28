@@ -6,4 +6,5 @@
     <color name="white">#ffffff</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="actionbar_wood">#ffb3aa86</color>
+    <color name="grey_ebebeb">#ebebeb</color>
 </resources>

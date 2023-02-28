@@ -27,9 +27,11 @@ public class AddConstants
 
     public static final String VENDOR_ID="JMMKNLITE001";
 
-    public static final String API_URL="http://development.bdigimedia.com/riccha_dev/App-Ad-Mgmt/getAdDetailsByAppName.php";
-
+   // public static final String API_URL="http://development.bdigimedia.com/riccha_dev/App-Ad-Mgmt/getAdDetailsByAppName.php";
+    public static final String FB_ADD_URL="https://khulasa-news.com/app_custom_ads/getAdDetailsByAppName.php";
     public static final String ADD_PROVIDER_ID="addProvId";
+
+    public static final String AutoStartKey="autostartkey";
     //sharedPrefKeys
 
     // if this value comes false from  the server end we will not diaplay adds in app, means will not display adds even using the addIds from local sring.xml file;
