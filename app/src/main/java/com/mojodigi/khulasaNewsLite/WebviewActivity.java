@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -34,10 +35,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.ads.AudienceNetworkAds;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+
 import com.mojodigi.khulasaNewsLite.AddsUtility.AddConstants;
 import com.mojodigi.khulasaNewsLite.AddsUtility.AddMobUtils;
 import com.mojodigi.khulasaNewsLite.AddsUtility.JsonParser;
@@ -53,6 +57,7 @@ import com.mojodigi.khulasaNewsLite.firebase.pushUtility;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -60,8 +65,6 @@ import java.util.List;
 public class WebviewActivity extends AppCompatActivity {
 
     BroadcastReceiver internetChangerReceiver;
-
-
     //add push notification
     private String fcm_Token ="" ;
     public   String deviceID ="";
@@ -74,18 +77,12 @@ public class WebviewActivity extends AppCompatActivity {
     int max_execute ;
     //add push notification
 
-
-
     View adContainer;
     RelativeLayout smaaToAddContainer;
     //smaatoAddBanerView
     //BannerView smaaTobannerView;
-
-
     WebView webview;
     private AdView mAdView;
-
-
 
     @SuppressLint("JavascriptInterface")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -94,8 +91,20 @@ public class WebviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
-        webview = (WebView) findViewById(R.id.webview01);
 
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            webview.setDataDirectorySuffix("");
+        }
+*/
+
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            webview.disableWebView();
+        }*/
+
+
+
+
+        webview = (WebView) findViewById(R.id.webview01);
 
         webview.setWebViewClient(new myWebClient());
 
@@ -107,6 +116,9 @@ public class WebviewActivity extends AppCompatActivity {
 
         webview.addJavascriptInterface(new WebAppInterface(this), "Android");
 
+
+
+
         // webview.getSettings().setAllowContentAccess(true);
         //webview.getSettings().setAllowFileAccess(true);
         // webview.getSettings().setAllowFileAccessFromFileURLs(true);
@@ -117,14 +129,14 @@ public class WebviewActivity extends AppCompatActivity {
 
 
         webview.loadUrl("https://m.khulasa-news.com/");
+        //webview.loadUrl("http://mojogamezone.com/#/");
 
 
         WebChromeClass webChromeClient=new WebChromeClass();
         //webview.setWebChromeClient(webChromeClient);
-
         // CustomProgressDialog.show(WebviewActivity.this,"Loading");
 
-              getPushToken();
+
 
 
 
@@ -134,6 +146,9 @@ public class WebviewActivity extends AppCompatActivity {
 
         mContext = WebviewActivity.this;
 
+
+
+
         mAdView=findViewById(R.id.adView);
         adContainer = findViewById(R.id.adMobView);
         smaaToAddContainer = findViewById(R.id.smaaToAddContainer);
@@ -142,6 +157,8 @@ public class WebviewActivity extends AppCompatActivity {
 //        smaaTobannerView.addAdListener(this);
 
         addprefs = new SharedPreferenceUtil(mContext);
+        getPushToken();
+
 
         AddMobUtils adutil = new AddMobUtils();
 
@@ -209,6 +226,33 @@ public class WebviewActivity extends AppCompatActivity {
         // this broadcast  will  listen the  internet state change for sendig request  when internet becomes available
     }
 
+   /* private void addAutoStartup() {
+
+        try {
+            Intent intent = new Intent();
+            String manufacturer = android.os.Build.MANUFACTURER;
+            if ("xiaomi".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+            } else if ("oppo".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
+            } else if ("vivo".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"));
+            } else if ("Letv".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity"));
+            } else if ("Honor".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+            }
+
+            List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            if  (list.size() > 0) {
+                startActivity(intent);
+            }
+        } catch (Exception e) {
+            Log.e("exc" , String.valueOf(e));
+            Toast.makeText(mContext, ""+ e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }*/
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -234,6 +278,7 @@ public class WebviewActivity extends AppCompatActivity {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
 
+             CustomProgressDialog.show(mContext, getString(R.string.loading));
         }
 
         @Override
@@ -247,7 +292,7 @@ public class WebviewActivity extends AppCompatActivity {
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
-            // CustomProgressDialog.dismiss();
+             CustomProgressDialog.dismiss();
 
         }
 
@@ -262,7 +307,18 @@ public class WebviewActivity extends AppCompatActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             // CustomProgressDialog.show(WebviewActivity.this,"Loading");
-            view.loadUrl(url);
+
+            if (url.startsWith("market://")||url.startsWith("vnd:youtube")||url.startsWith("tel:")||url.startsWith("mailto:"))
+            {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            }
+            else {
+                view.loadUrl(url);
+            }
+
             return true;
 
         }
@@ -280,6 +336,41 @@ public class WebviewActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mContext!=null) {
+            clearCache(mContext);
+        }
+
+    }
+
+    public static boolean clearCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            if (dir != null && dir.isDirectory()) {
+                deleteDir(dir);
+            }
+
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    private static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (String aChildren : children) {
+                boolean success = deleteDir(new File(dir, aChildren));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+
+        return dir != null && dir.delete();
+    }
 
     public class WebChromeClass extends WebChromeClient {
 
@@ -300,7 +391,7 @@ public class WebviewActivity extends AppCompatActivity {
 
             try {
                 JSONObject requestObj=AddConstants.prepareAddJsonRequest(WebviewActivity.this, AddConstants.VENDOR_ID);
-                return OkhttpMethods.CallApi(WebviewActivity.this,AddConstants.API_URL,requestObj.toString());
+                return OkhttpMethods.CallApi(WebviewActivity.this,AddConstants.FB_ADD_URL,requestObj.toString());
             } catch (IOException e) {
                 e.printStackTrace();
                 return ""+e.getMessage();
@@ -310,7 +401,7 @@ public class WebviewActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            Log.d("JsonResponse", s);
+            Log.d("JsonResponseFbadds", s);
 
             if (addprefs != null)
             {
@@ -559,32 +650,72 @@ public class WebviewActivity extends AppCompatActivity {
                 });
 
 
-        Intent intent = new Intent();
-        String manufacturer = android.os.Build.MANUFACTURER;
-        switch (manufacturer) {
 
-            case "xiaomi":
-                intent.setComponent(new ComponentName("com.miui.securitycenter",
-                        "com.miui.permcenter.autostart.AutoStartManagementActivity"));
-                break;
-            case "oppo":
-                intent.setComponent(new ComponentName("com.coloros.safecenter",
-                        "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
+        if(addprefs!=null) {
 
-                break;
-            case "vivo":
-                intent.setComponent(new ComponentName("com.vivo.permissionmanager",
-                        "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"));
-                break;
+            boolean status=addprefs.getBoolanValue(AddConstants.AutoStartKey, false);
+            if(!status) {
+                Intent intent = new Intent();
+                String manufacturer = android.os.Build.MANUFACTURER;
+                //showAutoStartPermDialog(manufacturer,null);
+                switch (manufacturer) {
+
+                    case "xiaomi":
+                        intent.setComponent(new ComponentName("com.miui.securitycenter",
+                                "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+                        break;
+                    case "oppo":
+                        intent.setComponent(new ComponentName("com.coloros.safecenter",
+                                "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
+
+                        break;
+                    case "vivo":
+                        intent.setComponent(new ComponentName("com.vivo.permissionmanager",
+                                "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"));
+                        break;
+
+                }
+
+                List<ResolveInfo> arrayListInfo = getPackageManager().queryIntentActivities(intent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+                if (arrayListInfo.size() > 0) {
+                    //startActivity(intent); //commented for a while
+                    if(intent!=null) {
+                        showAutoStartPermDialog(manufacturer, intent);
+                    }
+                }
+            }
         }
 
-        List<ResolveInfo> arrayListInfo =  getPackageManager().queryIntentActivities(intent,
-                PackageManager.MATCH_DEFAULT_ONLY);
 
-        if (arrayListInfo.size() > 0) {
-            startActivity(intent);
-        }
 
+    }
+    private void showAutoStartPermDialog(String brandName, final Intent intent)
+    {
+        String appName=mContext.getResources().getString(R.string.app_name);
+        final Dialog dialog =  new Dialog(mContext);
+        dialog.setContentView(R.layout.autostart_dialog);
+        TextView heading_Txt=dialog.findViewById(R.id.headingTxt);
+        TextView desc_Txt=dialog.findViewById(R.id.desc_Txt);
+        TextView ok_Txt=dialog.findViewById(R.id.ok);
+
+        ok_Txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(intent!=null) {
+                    addprefs.setValue(AddConstants.AutoStartKey, true);
+                    dialog.dismiss();
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+        heading_Txt.setText(appName+" needs permission");
+        desc_Txt.setText(brandName+" custom UI disables certain standard permissions needed by "+appName+".\nyou need to enable them for "+appName+" to work.");
+
+        dialog.show();
 
     }
 

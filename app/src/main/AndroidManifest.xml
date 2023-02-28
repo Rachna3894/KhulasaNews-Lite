@@ -3,24 +3,28 @@
     package="com.mojodigi.khulasaNewsLite">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+
 
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".Application.MyApplication"
+        android:name=".Application.comScoreAnalytics"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-
         <activity android:name=".WebviewActivity"
+            android:exported="true"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <activity android:name=".WebviewActivity_Notification" android:screenOrientation="portrait"></activity>
@@ -31,6 +35,7 @@
             android:value="ca-app-pub-5603925957932903~3576315291" /> <!-- test app ids added -->
 
         <receiver
+            android:exported="false"
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
             android:enabled="true">
             <intent-filter>
@@ -58,6 +63,7 @@
         <service
             android:name=".firebase.MyFirebaseMessagingService"
             android:enabled="true"
+            android:exported="false"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -303,49 +303,53 @@ public  void displaySmaatoBannerAdd(BannerView smaaTobannerView, RelativeLayout 
         boolean showAdd = addPref.getBoolanValue(AddConstants.SHOW_ADD, false);
 
 
-        if (!bannerAddid.equalsIgnoreCase(AddConstants.NOT_FOUND) && showAdd) {
-            com.facebook.ads.AdView fbAdView = new com.facebook.ads.AdView(mContext, bannerAddid, com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+        try {
+            if (!bannerAddid.equalsIgnoreCase(AddConstants.NOT_FOUND) && showAdd) {
+                com.facebook.ads.AdView fbAdView = new com.facebook.ads.AdView(mContext, bannerAddid, com.facebook.ads.AdSize.BANNER_HEIGHT_50);
 
-            final LinearLayout adContainer = activity.findViewById(R.id.banner_container);
+                final LinearLayout adContainer = activity.findViewById(R.id.banner_container);
 
 
-            if(adContainer.getChildCount()>0)
-            {
-                //removes the already  added views from adContainer
-                adContainer.removeAllViews();
+                if (adContainer.getChildCount() > 0) {
+                    //removes the already  added views from adContainer
+                    adContainer.removeAllViews();
+                }
+
+                adContainer.addView(fbAdView);
+
+                fbAdView.setAdListener(new com.facebook.ads.AdListener() {
+                    @Override
+                    public void onError(Ad ad, AdError adError) {
+                        // Ad error callback
+
+                        Log.d("Fberror", "" + adError.getErrorMessage());
+                    }
+
+                    @Override
+                    public void onAdLoaded(Ad ad) {
+                        // Ad loaded callback
+                        adContainer.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAdClicked(Ad ad) {
+                        // Ad clicked callback
+                    }
+
+                    @Override
+                    public void onLoggingImpression(Ad ad) {
+                        // Ad impression logged callback
+                    }
+                });
+
+                // Request an ad
+                fbAdView.loadAd();
+
+
             }
-
-            adContainer.addView(fbAdView);
-
-            fbAdView.setAdListener(new com.facebook.ads.AdListener() {
-                @Override
-                public void onError(Ad ad, AdError adError) {
-                    // Ad error callback
-
-                    Log.d("Fberror", "" + adError.getErrorMessage());
-                }
-
-                @Override
-                public void onAdLoaded(Ad ad) {
-                    // Ad loaded callback
-                    adContainer.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAdClicked(Ad ad) {
-                    // Ad clicked callback
-                }
-
-                @Override
-                public void onLoggingImpression(Ad ad) {
-                    // Ad impression logged callback
-                }
-            });
-
-            // Request an ad
-            fbAdView.loadAd();
-
-
+        }catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 

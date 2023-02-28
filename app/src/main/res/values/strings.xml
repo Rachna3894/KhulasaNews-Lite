@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Khulasa News Lite</string>
 
+    <string name="loading">Loading...</string>
 
     <!-- demo app ids -->
     <!--
